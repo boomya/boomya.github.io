@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="git,git flow," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="以git-flow为基准, 设计一套符合初创公司的git多人协作最佳实践.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git-flow">
+<meta property="og:url" content="http://boomya.github.io/2016/02/01/git-flow/index.html">
+<meta property="og:site_name" content="BOOMYA">
+<meta property="og:description" content="以git-flow为基准, 设计一套符合初创公司的git多人协作最佳实践.">
+<meta property="og:image" content="http://backlogtool.com/git-guide/cn/img/post/intro/capture_intro1_2_2.png">
+<meta property="og:image" content="http://7q5a09.com1.z0.glb.clouddn.com/o_git-workflow-release-cycle-3release.png">
+<meta property="og:updated_time" content="2016-06-13T09:28:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git-flow">
+<meta name="twitter:description" content="以git-flow为基准, 设计一套符合初创公司的git多人协作最佳实践.">
+<meta name="twitter:image" content="http://backlogtool.com/git-guide/cn/img/post/intro/capture_intro1_2_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://boomya.github.io/2016/02/01/git-flow/"/>
+
+  <title> git-flow | BOOMYA </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?74540d181ed263c7c10b2b0e7389035c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BOOMYA</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">我们的美味生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZHLHzjsrLad_r6HCJc8z','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                git-flow
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-01T20:53:27+08:00" content="2016-02-01">
+              2016-02-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/02/01/git-flow/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/01/git-flow/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/02/01/git-flow/" class="leancloud_visitors" data-flag-title="git-flow">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以git-flow为基准, 设计一套符合初创公司的git多人协作最佳实践.<br><a id="more"></a></p>
+<h2 id="分支开发流程"><a href="#分支开发流程" class="headerlink" title="分支开发流程"></a>分支开发流程</h2><h4 id="1-了解Git-Maven的基本用法-了解git-flow"><a href="#1-了解Git-Maven的基本用法-了解git-flow" class="headerlink" title="1. 了解Git, Maven的基本用法, 了解git-flow"></a>1. 了解Git, Maven的基本用法, 了解git-flow</h4><ul>
+<li><h5 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h5><img src="http://backlogtool.com/git-guide/cn/img/post/intro/capture_intro1_2_2.png" alt="image"></li>
+<li><h5 id="Git-常用命令"><a href="#Git-常用命令" class="headerlink" title="Git 常用命令"></a>Git 常用命令</h5><pre><code class="shell">#拉取远程仓库主干版本代码
+git clone git@112.124.125.71:server/dk-ext-share.git dk-ext-share
+#拉取远程仓库dev分支代码
+git clone -b dev git@112.124.125.71:server/dk-ext-share.git dk-ext-share-dev
+#更新并提交本地仓库
+git add pom.xml
+git commit -m &quot;update pom.xml&quot;
+#拉取远程仓库
+git pull
+#将本地仓库提交
+git push
+#基于master创建dev分支, 并切换到dev分支
+git checkout -b dev master
+#与远程仓库同步本地分支索引
+git fetch -p
+#列出所有分支
+git branch -a
+#删除分支
+git branch -d feature-t
+#将当前分支与指定分支feature-t1合并
+git rebase --no-ff feature-t1
+#如果在合并过程中发生冲突, 解决后, 继续执行合并
+git rebase --continue
+#查看当前的版本状态, 包括是否有未commit, 未push, 冲突是否解决等  
+git status
+</code></pre>
+</li>
+<li><h5 id="git-flow"><a href="#git-flow" class="headerlink" title="git-flow"></a>git-flow</h5><p><img src="http://7q5a09.com1.z0.glb.clouddn.com/o_git-workflow-release-cycle-3release.png" alt="image">  </p>
+</li>
+</ul>
+<ol>
+<li>==master分支==被保护且锁定, 不允许做任何的提交操作, 只允许在GitLab上提交合并, 由==管理员==执行合并.  </li>
+<li>==dev分支==基于master分支创建, 用于和feature分支合并, 做上线前的联调.  </li>
+<li>==release分支==基于dev分支创建,  被保护且锁定, 不允许做任何的提交操作, 只允许在GitLab上提交合并, 由管理员执行合并. 只用于==正式发布==.</li>
+<li>==feature分支==基于dev分支创建, 是临时性分支, 在每次正式发布后需要删除. 本地测试通过后, 和==dev分支==合并. 命名规则按照当前项目的版本号来, 比如, 版本号为==1.2.2-SNAPSHOT==, 则分支名为==feature-1.2.2-SNAPSHOT==  </li>
+</ol>
+<h4 id="2-具体的操作流程"><a href="#2-具体的操作流程" class="headerlink" title="2. 具体的操作流程"></a>2. 具体的操作流程</h4><p>master=管理员, developer=开发人员</p>
+<ul>
+<li><h5 id="开发前置准备工作-developer"><a href="#开发前置准备工作-developer" class="headerlink" title="开发前置准备工作 ==(developer)=="></a>开发前置准备工作 ==(developer)==</h5><p>  本地基于dev分支创建临时性功能feature分支, 并推送到远程代码仓库.</p>
+<pre><code class="shell">#新版本号为分支名
+git checkout -b xxx-SNAPSHOT dev &amp;&amp; git push origin xxx-SNAPSHOT:xxx-SNAPSHOT
+</code></pre>
+<p>切换到新分支, 修改pom.xml中版本号和依赖的版本号为新版本号</p>
+</li>
+<li><h5 id="开发阶段-developer"><a href="#开发阶段-developer" class="headerlink" title="开发阶段 ==(developer)=="></a>开发阶段 ==(developer)==</h5><p>  在临时性功能分支下开发, 目前只能在本地测试</p>
+</li>
+<li><h5 id="联调阶段-developer-master"><a href="#联调阶段-developer-master" class="headerlink" title="联调阶段 ==(developer, master)=="></a>联调阶段 ==(developer, master)==</h5>  切换到dev分支, 和功能分支合并, 解决冲突后, 提交并更新远程代码仓库<pre><code class="shell">git checkout dev  
+git rebase --no-ff xxx-SNAPSHOT
+</code></pre>
+</li>
+<li><h5 id="正式发布-developer-master"><a href="#正式发布-developer-master" class="headerlink" title="正式发布  ==(developer, master)=="></a>正式发布  ==(developer, master)==</h5>  由developer在GitLab发起merge request, dev分支合并到release分支, 以及dev分支合并到master分支, 由master在GitLab中执行合并.<br>  合并后, 由master执行发布流程, 二方库需要deploy到nexus.</li>
+<li><h5 id="正式发布后置-developer-master"><a href="#正式发布后置-developer-master" class="headerlink" title="正式发布后置  ==(developer, master)=="></a>正式发布后置  ==(developer, master)==</h5>  分别在本地和GitLab删除临时性功能分支, 并且由master在GitLab中创建本次发布的tag.</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag">#git</a>
+          
+            <a href="/tags/git-flow/" rel="tag">#git flow</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/01/es6_tutorial/" rel="next" title="ECMAScript 6 入门">
+                <i class="fa fa-chevron-left"></i> ECMAScript 6 入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/15/self-control/" rel="prev" title="<<自控力>>读书笔记">
+                <<自控力>>读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/02/01/git-flow/"
+           data-title="git-flow" data-url="http://boomya.github.io/2016/02/01/git-flow/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Sam Jiang" />
+          <p class="site-author-name" itemprop="name">Sam Jiang</p>
+          <p class="site-description motion-element" itemprop="description">有一颗前端心的后端开发</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#分支开发流程"><span class="nav-number">1.</span> <span class="nav-text">分支开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-了解Git-Maven的基本用法-了解git-flow"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 了解Git, Maven的基本用法, 了解git-flow</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Git"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">Git</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Git-常用命令"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">Git 常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#git-flow"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">git-flow</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-具体的操作流程"><span class="nav-number">1.0.2.</span> <span class="nav-text">2. 具体的操作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#开发前置准备工作-developer"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">开发前置准备工作 ==(developer)==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发阶段-developer"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">开发阶段 ==(developer)==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#联调阶段-developer-master"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">联调阶段 ==(developer, master)==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正式发布-developer-master"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">正式发布  ==(developer, master)==</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正式发布后置-developer-master"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">正式发布后置  ==(developer, master)==</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam Jiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"boomya"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KRV5K93kkRC2u7Tz6H1ccU9z-gzGzoHsz", "70FGQfEyNiGbPSehdOmXyVb0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

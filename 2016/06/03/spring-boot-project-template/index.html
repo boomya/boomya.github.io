@@ -1,0 +1,865 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,spring boot," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Spring这个巨无霸因为其优良的设计和功能的完备, 已经是每个Java程序员必备的技能. 不过由于Spring的配置繁琐, 相关模块众多, 增加了框架整合的复杂度, spring boot的出现很好的解决了这些问题, 其设计目的是用来简化新的Spring应用的初始搭建以及开发过程.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于spring boot创建项目模板">
+<meta property="og:url" content="http://boomya.github.io/2016/06/03/spring-boot-project-template/index.html">
+<meta property="og:site_name" content="BOOMYA">
+<meta property="og:description" content="Spring这个巨无霸因为其优良的设计和功能的完备, 已经是每个Java程序员必备的技能. 不过由于Spring的配置繁琐, 相关模块众多, 增加了框架整合的复杂度, spring boot的出现很好的解决了这些问题, 其设计目的是用来简化新的Spring应用的初始搭建以及开发过程.">
+<meta property="og:image" content="http://7ls0sn.com1.z0.glb.clouddn.com/spring-boot-base.jpg-w980">
+<meta property="og:image" content="http://7ls0sn.com1.z0.glb.clouddn.com/druid.jpg-w980">
+<meta property="og:updated_time" content="2016-06-13T10:59:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于spring boot创建项目模板">
+<meta name="twitter:description" content="Spring这个巨无霸因为其优良的设计和功能的完备, 已经是每个Java程序员必备的技能. 不过由于Spring的配置繁琐, 相关模块众多, 增加了框架整合的复杂度, spring boot的出现很好的解决了这些问题, 其设计目的是用来简化新的Spring应用的初始搭建以及开发过程.">
+<meta name="twitter:image" content="http://7ls0sn.com1.z0.glb.clouddn.com/spring-boot-base.jpg-w980">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://boomya.github.io/2016/06/03/spring-boot-project-template/"/>
+
+  <title> 基于spring boot创建项目模板 | BOOMYA </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?74540d181ed263c7c10b2b0e7389035c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BOOMYA</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">我们的美味生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZHLHzjsrLad_r6HCJc8z','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                基于spring boot创建项目模板
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-03T15:41:25+08:00" content="2016-06-03">
+              2016-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/spring-boot/" itemprop="url" rel="index">
+                    <span itemprop="name">spring boot</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/03/spring-boot-project-template/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/03/spring-boot-project-template/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/03/spring-boot-project-template/" class="leancloud_visitors" data-flag-title="基于spring boot创建项目模板">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Spring这个巨无霸因为其优良的设计和功能的完备, 已经是每个Java程序员必备的技能. 不过由于Spring的配置繁琐, 相关模块众多, 增加了框架整合的复杂度, spring boot的出现很好的解决了这些问题, 其设计目的是用来简化新的Spring应用的初始搭建以及开发过程.<br><a id="more"></a></p>
+<h3 id="spring-boot"><a href="#spring-boot" class="headerlink" title="spring boot"></a>spring boot</h3><p>Spring这个巨无霸因为其优良的设计和功能的完备, 已经是每个Java程序员必备的技能. 不过由于Spring的配置繁琐, 相关模块众多, 增加了框架整合的复杂度, spring boot的出现很好的解决了这些问题, 其设计目的是用来简化新的Spring应用的初始搭建以及开发过程.</p>
+<p><strong>spring boot的特点</strong></p>
+<ol>
+<li>可以创建web和non-web类型的项目</li>
+<li>嵌入式servlet容器, 直接使用fat Jar部署, 无需部署War包</li>
+<li>自动化分散配置Spring</li>
+<li>简化Maven配置</li>
+<li>提供production-ready特性, 比如健康指标, 度量数据等</li>
+</ol>
+<p><strong>spring boot常用组件</strong><br>spring boot对常用模块进行了组件化, 整合起来非常容易, 下面是几个常用的spring boot组件  </p>
+<ul>
+<li>spring-boot-starter-web:支持全栈web开发，里面包括了Tomcat和Spring-webmvc。</li>
+<li>spring-boot-starter-mail:提供对javax.mail的支持.</li>
+<li>spring-boot-starter-ws: 提供对Spring Web Services的支持</li>
+<li>spring-boot-starter-test:提供对常用测试框架的支持，包括JUnit，Hamcrest以及Mockito等。</li>
+<li>spring-boot-starter-actuator:支持产品环境下的一些功能，比如指标度量及监控等。</li>
+<li>spring-boot-starter-jetty:支持jetty容器。</li>
+<li>spring-boot-starter-log4j:引入默认的log框架（logback）</li>
+</ul>
+<h3 id="项目模板的意义"><a href="#项目模板的意义" class="headerlink" title="项目模板的意义"></a>项目模板的意义</h3><p>公司内部的各个开发团队因为技术的偏好以及擅长的技术不同, 在开发项目时都有各自的考虑和选型, 这种情况导致了大部分的项目使用的框架是不同的, 增加了新人上手项目的难度, 而且各个开发团队在重复的造轮子, 技术的积累比较薄弱.<br>正确的做法是应该有一套合理高效的统一使用的项目模板, 规范开发流程和技术选型, 将主要的精力放在业务的开发上, 而不是重复造轮子.</p>
+<h3 id="demo项目介绍"><a href="#demo项目介绍" class="headerlink" title="demo项目介绍"></a>demo项目介绍</h3><h4 id="spring-boot-base目录结构"><a href="#spring-boot-base目录结构" class="headerlink" title="spring-boot-base目录结构"></a>spring-boot-base目录结构</h4><p><img src="http://7ls0sn.com1.z0.glb.clouddn.com/spring-boot-base.jpg-w980" alt="image"><br><strong>补充说明</strong></p>
+<ul>
+<li>过滤器<br>添加过滤器的方法, 除了demo中提供的配置方式, 也可以在过滤器上直接添加@WebFilter注解实现</li>
+<li>内嵌jetty<br>spring boot默认内嵌的是tomcat, 通过修改pom.xml文件, 替换tomcat<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-jetty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>jetty高级配置</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JettyConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> EmbeddedServletContainerFactory <span class="title">servletContainerFactory</span><span class="params">(</span><br><span class="line">            @Value(<span class="string">"$&#123;jetty.threadPool.maxThreads:256&#125;"</span>)</span> <span class="keyword">final</span> String maxThreads,</span><br><span class="line">            @<span class="title">Value</span><span class="params">(<span class="string">"$&#123;jetty.threadPool.minThreads:8&#125;"</span>)</span> <span class="keyword">final</span> String minThreads,</span><br><span class="line">            @<span class="title">Value</span><span class="params">(<span class="string">"$&#123;jetty.threadPool.idleTimeout:60000&#125;"</span>)</span> <span class="keyword">final</span> String idleTimeout) </span>&#123;</span><br><span class="line">        JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory = <span class="keyword">new</span> JettyEmbeddedServletContainerFactory();</span><br><span class="line">        jettyEmbeddedServletContainerFactory.addServerCustomizers(<span class="keyword">new</span> JettyServerCustomizer() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(Server server)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">final</span> QueuedThreadPool threadPool = server.getBean(QueuedThreadPool.class);</span><br><span class="line">                threadPool.setMaxThreads(Integer.valueOf(maxThreads));</span><br><span class="line">                threadPool.setMinThreads(Integer.valueOf(minThreads));</span><br><span class="line">                threadPool.setIdleTimeout(Integer.valueOf(idleTimeout));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> jettyEmbeddedServletContainerFactory;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>打包<br>spring boot配合maven可以很容易构建可执行jar包, 如果要构建一个普通的jar包, 非可执行的, 需要在pom.xml中增加以下代码<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">classifier</span>&gt;</span>exec<span class="tag">&lt;/<span class="name">classifier</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>执行 <em>mvn clean package</em> 会生成两个jar包, xxxx-exec.jar是可执行jar包, xxxx.jar是普通的jar包</p>
+<h4 id="整合Druid数据库连接池以及配置相关监控"><a href="#整合Druid数据库连接池以及配置相关监控" class="headerlink" title="整合Druid数据库连接池以及配置相关监控"></a>整合Druid数据库连接池以及配置相关监控</h4><p>目前来看, Druid是Java语言中最好的数据库连接池，并且能够提供强大的监控和扩展功能。<br>在repository模块的pom.xml引入Druid的依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>使用spring-boot的自动配置, 将默认数据库连接池替换为Druid<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MyBatisConfig.java</span></span><br><span class="line">......</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DruidDataSource druidDataSource = <span class="keyword">new</span> DruidDataSource();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        druidDataSource.setUrl(jdbcUrl);</span><br><span class="line">        druidDataSource.setUsername(username);</span><br><span class="line">        druidDataSource.setPassword(password);</span><br><span class="line">        druidDataSource.setMaxActive(maxActive);</span><br><span class="line"></span><br><span class="line">        druidDataSource.setFilters(<span class="string">"stat"</span>);</span><br><span class="line">        druidDataSource.setInitialSize(<span class="number">1</span>);</span><br><span class="line">        druidDataSource.setMaxActive(<span class="number">60000</span>);</span><br><span class="line">        druidDataSource.setMinIdle(<span class="number">1</span>);</span><br><span class="line">        druidDataSource.setTimeBetweenEvictionRunsMillis(<span class="number">60000</span>);</span><br><span class="line">        druidDataSource.setMinEvictableIdleTimeMillis(<span class="number">300000</span>);</span><br><span class="line">        druidDataSource.setTestWhileIdle(<span class="keyword">true</span>);</span><br><span class="line">        druidDataSource.setTestOnBorrow(<span class="keyword">false</span>);</span><br><span class="line">        druidDataSource.setTestOnReturn(<span class="keyword">false</span>);</span><br><span class="line">        druidDataSource.setValidationQuery(<span class="string">"select 'x'"</span>);</span><br><span class="line">        druidDataSource.setPoolPreparedStatements(<span class="keyword">true</span>);</span><br><span class="line">        druidDataSource.setMaxOpenPreparedStatements(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> druidDataSource;</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<p>配置Druid的监控Controller, 在web模块下找到DruidStatViewController<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@WebServlet</span>(urlPatterns = <span class="string">"/druid/*"</span>,</span><br><span class="line">        initParams=&#123;</span><br><span class="line">                <span class="meta">@WebInitParam</span>(name=<span class="string">"allow"</span>,value=<span class="string">""</span>),<span class="comment">// IP白名单 (没有配置或者为空，则允许所有访问)</span></span><br><span class="line">                <span class="meta">@WebInitParam</span>(name=<span class="string">"deny"</span>,value=<span class="string">""</span>),<span class="comment">// IP黑名单 (存在共同时，deny优先于allow)</span></span><br><span class="line">                <span class="meta">@WebInitParam</span>(name=<span class="string">"loginUsername"</span>,value=<span class="string">"atlas"</span>),<span class="comment">// 用户名</span></span><br><span class="line">                <span class="meta">@WebInitParam</span>(name=<span class="string">"loginPassword"</span>,value=<span class="string">"atlas"</span>),<span class="comment">// 密码</span></span><br><span class="line">                <span class="meta">@WebInitParam</span>(name=<span class="string">"resetEnable"</span>,value=<span class="string">"false"</span>)<span class="comment">// 禁用HTML页面上的“Reset All”功能</span></span><br><span class="line">        &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DruidStatViewController</span> <span class="keyword">extends</span> <span class="title">StatViewServlet</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在浏览器打开<em><a href="http://localhost:9090/boom/druid/index.html" target="_blank" rel="external">http://localhost:9090/boom/druid/index.html</a></em><br><img src="http://7ls0sn.com1.z0.glb.clouddn.com/druid.jpg-w980" alt="image"></p>
+<h4 id="整合mybatis"><a href="#整合mybatis" class="headerlink" title="整合mybatis"></a>整合mybatis</h4><p>在repository模块下找到config包<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MyBatisConfig.java</span></span><br><span class="line">......</span><br><span class="line"><span class="meta">@Bean</span>(name = <span class="string">"sqlSessionFactory"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactoryBean</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    SqlSessionFactoryBean sqlSessionFactoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">    sqlSessionFactoryBean.setDataSource(dataSource());</span><br><span class="line">    PathMatchingResourcePatternResolver resolver = <span class="keyword">new</span> PathMatchingResourcePatternResolver();</span><br><span class="line"></span><br><span class="line">    sqlSessionFactoryBean.setMapperLocations(resolver.getResources(<span class="string">"classpath:/mybatis/*.xml"</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> sqlSessionFactoryBean.getObject();</span><br><span class="line">&#125;</span><br><span class="line">......</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MyBatisMapperScannerConfig.java</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"com.boom.base.repository.mapper"</span>)</span><br><span class="line"><span class="meta">@AutoConfigureAfter</span>(&#123; MyBatisConfig.class, MyBatisConfigDevelopment.class &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisMapperScannerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MapperScannerConfigurer <span class="title">mapperScannerConfigurer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        MapperScannerConfigurer mapperScannerConfigurer = <span class="keyword">new</span> MapperScannerConfigurer();</span><br><span class="line">        mapperScannerConfigurer.setSqlSessionFactoryBeanName(<span class="string">"sqlSessionFactory"</span>);</span><br><span class="line">        mapperScannerConfigurer.setBasePackage(<span class="string">"com.boom.base.repository.mapper"</span>);</span><br><span class="line">        <span class="keyword">return</span> mapperScannerConfigurer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>项目位置: <a href="https://github.com/boomya/spring-boot-base" target="_blank" rel="external">spring-boot-base</a><br>这个项目只是用来抛砖引玉, 如果能给大家带来一点想法是最好的, 希望大家多提宝贵意见, 谢谢.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/spring-boot/" rel="tag">#spring boot</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/06/lineal-thinking/" rel="next" title="跳出直线思维的陷阱">
+                <i class="fa fa-chevron-left"></i> 跳出直线思维的陷阱
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/03/spring-boot-project-template/"
+           data-title="基于spring boot创建项目模板" data-url="http://boomya.github.io/2016/06/03/spring-boot-project-template/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Sam Jiang" />
+          <p class="site-author-name" itemprop="name">Sam Jiang</p>
+          <p class="site-description motion-element" itemprop="description">有一颗前端心的后端开发</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#spring-boot"><span class="nav-number">1.</span> <span class="nav-text">spring boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目模板的意义"><span class="nav-number">2.</span> <span class="nav-text">项目模板的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo项目介绍"><span class="nav-number">3.</span> <span class="nav-text">demo项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#spring-boot-base目录结构"><span class="nav-number">3.1.</span> <span class="nav-text">spring-boot-base目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整合Druid数据库连接池以及配置相关监控"><span class="nav-number">3.2.</span> <span class="nav-text">整合Druid数据库连接池以及配置相关监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整合mybatis"><span class="nav-number">3.3.</span> <span class="nav-text">整合mybatis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后"><span class="nav-number">4.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam Jiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"boomya"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KRV5K93kkRC2u7Tz6H1ccU9z-gzGzoHsz", "70FGQfEyNiGbPSehdOmXyVb0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

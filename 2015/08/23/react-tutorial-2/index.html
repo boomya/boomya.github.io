@@ -1,0 +1,842 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Menlo:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,react,前端," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="react入门教程-2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react入门教程-2">
+<meta property="og:url" content="http://boomya.github.io/2015/08/23/react-tutorial-2/index.html">
+<meta property="og:site_name" content="BOOMYA">
+<meta property="og:description" content="react入门教程-2">
+<meta property="og:updated_time" content="2016-06-13T08:58:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react入门教程-2">
+<meta name="twitter:description" content="react入门教程-2">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://boomya.github.io/2015/08/23/react-tutorial-2/"/>
+
+  <title> react入门教程-2 | BOOMYA </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?74540d181ed263c7c10b2b0e7389035c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">BOOMYA</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">我们的美味生活</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'ZHLHzjsrLad_r6HCJc8z','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                react入门教程-2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-23T10:17:42+08:00" content="2015-08-23">
+              2015-08-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/23/react-tutorial-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/23/react-tutorial-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/08/23/react-tutorial-2/" class="leancloud_visitors" data-flag-title="react入门教程-2">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>react入门教程-2<br><a id="more"></a><br><br><br><br><br><br></p>
+<h3 id="组件之间的参数传递-props"><a href="#组件之间的参数传递-props" class="headerlink" title="组件之间的参数传递(props)"></a>组件之间的参数传递(props)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset="utf-8"&gt;</span><br><span class="line">        &lt;title&gt;Hello World&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;div id="app"&gt;&lt;/div&gt;</span><br><span class="line">        &lt;script type="text/javascript" src="bower_components/react/react.js"&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script type="text/javascript" src="bower_components/react/JSXTransformer.js"&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script type="text/jsx"&gt;</span><br><span class="line">                var MessageBox = React.createClass(&#123;</span><br><span class="line">                    getInitialState: function () &#123;</span><br><span class="line">                        return &#123;</span><br><span class="line">                            subMessages:[</span><br><span class="line">                                "test message 1",</span><br><span class="line">                                "test message 2",</span><br><span class="line">                                "test message 3",</span><br><span class="line">                            ],</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    render: function() &#123;</span><br><span class="line">                        return (</span><br><span class="line">                            &lt;div&gt;</span><br><span class="line">                                &lt;h1&gt;Hello World &#123;this.props.name&#125;&lt;/h1&gt;</span><br><span class="line">                                &lt;SubMessageBox  messages=&#123;this.state.subMessages&#125;/&gt;</span><br><span class="line">                            &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">                        );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                var SubMessageBox  = React.createClass(&#123;</span><br><span class="line">                    getDefaultProps: function () &#123;</span><br><span class="line">                        return &#123;messages:["default message"],&#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    render: function() &#123;</span><br><span class="line">                        var msgs = [];</span><br><span class="line">                        this.props.messages.forEach(function (msg, index) &#123;</span><br><span class="line">                            msgs.push(</span><br><span class="line">                                &lt;p key=&#123;"key_" + index&#125;&gt;"message:" &#123;msg&#125; &#123;index&#125;&lt;/p&gt;</span><br><span class="line">                            );</span><br><span class="line">                        &#125;);</span><br><span class="line">                        return (</span><br><span class="line">                            &lt;div&gt;</span><br><span class="line">                                &#123;msgs&#125;</span><br><span class="line">                            &lt;/div&gt;</span><br><span class="line">                        );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                React.render(</span><br><span class="line">                    &lt;MessageBox name=&#123;"shan"&#125; /&gt;,</span><br><span class="line">                    document.getElementById("app"),</span><br><span class="line">                    function () &#123;</span><br><span class="line">                        console.log("render finished.");</span><br><span class="line">                    &#125;</span><br><span class="line">                );</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="Spread-Attributes"><a href="#Spread-Attributes" class="headerlink" title="Spread Attributes"></a>Spread Attributes</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> props = &#123;&#125;;</span><br><span class="line">props.foo = x;</span><br><span class="line">props.bar = y;</span><br><span class="line"><span class="keyword">var</span> component = &lt;Component &#123;...props&#125; /&gt;;</span><br></pre></td></tr></table></figure>
+<p>能被多次使用，也可以和其它属性一起用。注意顺序很重要，后面的会覆盖掉前面的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> props = &#123; foo: <span class="string">'default'</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> component = &lt;Component &#123;...props&#125; foo=&#123;'override'&#125; /&gt;;</span><br><span class="line">console.log(component.props.foo); // 'override'</span><br></pre></td></tr></table></figure></p>
+<p>接收props<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> FancyCheckbox = React.createClass(&#123;</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> &#123; checked, ...other &#125; = <span class="keyword">this</span>.props;</span><br><span class="line">    <span class="keyword">var</span> fancyClass = checked ? <span class="string">'FancyChecked'</span> : <span class="string">'FancyUnchecked'</span>;</span><br><span class="line">    <span class="comment">// `other` 包含 &#123; onClick: console.log &#125; 但 checked 属性除外</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div &#123;...other&#125; className=&#123;fancyClass&#125; /&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">React.render(</span><br><span class="line">  &lt;FancyCheckbox checked=&#123;true&#125; onClick=&#123;console.log.bind(console)&#125;&gt;</span><br><span class="line">    Hello world!</span><br><span class="line">  &lt;/FancyCheckbox&gt;,</span><br><span class="line">  document.getElementById('example')</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong> tips </strong><br><em>props</em>应该禁止修改, 修改<em>props</em>对象可能会导致预料之外的结果.  </p>
+</blockquote>
+<h3 id="refs和getDOMNode-的使用"><a href="#refs和getDOMNode-的使用" class="headerlink" title="refs和getDOMNode()的使用"></a>refs和getDOMNode()的使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> FormApp = React.createClass(&#123;</span><br><span class="line">                    getInitialState: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> &#123;</span><br><span class="line">                            inputValue: <span class="string">"input value"</span>,</span><br><span class="line">                            selectedValue: <span class="string">"A"</span>,</span><br><span class="line">                            textareaValue: <span class="string">"some text..."</span>,</span><br><span class="line">                            checkedValues:[],</span><br><span class="line">                            radioCheckedValue: <span class="string">"B"</span>,</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    changeCheckBox: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">var</span> checkedValues = <span class="keyword">this</span>.state.checkedValues.slice();</span><br><span class="line">                        <span class="keyword">var</span> index = checkedValues.indexOf(e.target.value);</span><br><span class="line">                        <span class="keyword">if</span>(index == <span class="number">-1</span>)&#123;</span><br><span class="line">                            checkedValues.push(e.target.value);</span><br><span class="line">                        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                            checkedValues.splice(index, <span class="number">1</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                            checkedValues:checkedValues,</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;,</span><br><span class="line">                    changeRadio: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">                            radioCheckedValue: e.target.value,</span><br><span class="line">                        &#125;);</span><br><span class="line">                    &#125;,</span><br><span class="line">                    handleSubmit: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">                        e.preventDefault();</span><br><span class="line">                        <span class="keyword">var</span> formData = &#123;</span><br><span class="line">                            input: <span class="keyword">this</span>.refs.goodInput.getDOMNode().value,</span><br><span class="line">                            select: <span class="keyword">this</span>.refs.goodSelect.getDOMNode().value,</span><br><span class="line">                            textarea: <span class="keyword">this</span>.refs.goodTextarea.getDOMNode().value,</span><br><span class="line">                            checkBox: <span class="keyword">this</span>.state.checkedValues,</span><br><span class="line">                            radio: <span class="keyword">this</span>.state.radioCheckedValue,</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="built_in">console</span>.log(formData);</span><br><span class="line">                        <span class="keyword">this</span>.refs.radioButtons.say();</span><br><span class="line">                    &#125;,</span><br><span class="line">                    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                        <span class="keyword">return</span> (</span><br><span class="line">                            &lt;div&gt;</span><br><span class="line">                                &lt;form onSubmit=&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">                                    &lt;input ref="goodInput" type="text" name="name" defaultValue=&#123;this.state.inputValue&#125; /&gt;&lt;br/&gt;</span><br><span class="line">                                    &lt;select ref="goodSelect" defaultValue=&#123;this.state.selectedValue&#125;&gt;</span><br><span class="line">                                        &lt;option value="A"&gt;1&lt;/option&gt;</span><br><span class="line">                                        &lt;option value="B"&gt;2&lt;/option&gt;</span><br><span class="line">                                        &lt;option value="C"&gt;3&lt;/option&gt;</span><br><span class="line">                                    &lt;/select&gt;</span><br><span class="line">                                    &lt;br/&gt;</span><br><span class="line">                                    &lt;RadioButtons ref="radioButtons" changeRadio=&#123;this.changeRadio&#125; /&gt;</span><br><span class="line">                                    &lt;br/&gt;</span><br><span class="line">                                    &lt;CheckBoxButtons changeCheckBox=&#123;this.changeCheckBox&#125; /&gt;</span><br><span class="line"></span><br><span class="line">                                    &lt;br /&gt;</span><br><span class="line">                                    &lt;textarea ref="goodTextarea" name="name" rows="8" cols="40" defaultValue=&#123;this.state.textareaValue&#125;&gt;&lt;/textarea&gt;</span><br><span class="line"></span><br><span class="line">                                    &lt;input type="submit" name="name" value="OK" /&gt;</span><br><span class="line">                                &lt;/form&gt;</span><br><span class="line">                            &lt;/div&gt;</span><br><span class="line">                        );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                var RadioButtons = React.createClass(&#123;</span><br><span class="line">                    say: function () &#123;</span><br><span class="line">                        alert(" something... ");</span><br><span class="line">                    &#125;,</span><br><span class="line">                    render: function() &#123;</span><br><span class="line">                        return (</span><br><span class="line">                            &lt;span&gt;</span><br><span class="line">                                &lt;input type="radio" name="goodRadio" value="A" onChange=&#123;this.props.changeRadio&#125;/&gt;</span><br><span class="line">                                &lt;input type="radio" name="goodRadio" value="B" onChange=&#123;this.props.changeRadio&#125; defaultChecked /&gt;</span><br><span class="line">                                &lt;input type="radio" name="goodRadio" value="C" onChange=&#123;this.props.changeRadio&#125;  /&gt;</span><br><span class="line">                            &lt;/span&gt;</span><br><span class="line">                        );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                var CheckBoxButtons = React.createClass(&#123;</span><br><span class="line">                    render: function() &#123;</span><br><span class="line">                        return (</span><br><span class="line">                            &lt;span&gt;</span><br><span class="line">                                &lt;input type="checkBox" name="goodChx" value="A" onChange=&#123;this.props.changeCheckBox&#125; /&gt;</span><br><span class="line">                                &lt;input type="checkBox" name="goodChx" value="B"</span><br><span class="line">                                onChange=&#123;this.props.changeCheckBox&#125; /&gt;</span><br><span class="line">                                &lt;input type="checkBox" name="goodChx" value="C"</span><br><span class="line">                                onChange=&#123;this.props.changeCheckBox&#125; /&gt;</span><br><span class="line">                            &lt;/span&gt;</span><br><span class="line">                        );</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">                React.render(</span><br><span class="line">                    &lt;FormApp name=&#123;"shan"&#125; /&gt;,</span><br><span class="line">                    document.getElementById("app"),</span><br><span class="line">                    function () &#123;</span><br><span class="line">                        console.log("render finished.");</span><br><span class="line">                    &#125;</span><br><span class="line">                );</span><br></pre></td></tr></table></figure>
+<p>引用<em>DOM</em>节点. <em>getDOMNode()</em>仅在挂载在组件上有效(也就是说, 组件已经被放进了<em>DOM</em>中).如果尝试在一个未被挂载的组件上调用这个函数(例如在<em>render</em>中调用<em>getDOMNode()</em>),将会抛出异常.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">  handleClick: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Explicitly focus the text input using the raw DOM API.</span></span><br><span class="line">    <span class="keyword">this</span>.refs.myTextInput.getDOMNode().focus();</span><br><span class="line">  &#125;,</span><br><span class="line">  render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// The ref attribute adds a reference to the component to</span></span><br><span class="line">    <span class="comment">// this.refs when the component is mounted.</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;input type="text" ref="myTextInput" /&gt;</span><br><span class="line">        &lt;input</span><br><span class="line">          type="button"</span><br><span class="line">          value="Focus the text input"</span><br><span class="line">          onClick=&#123;this.handleClick&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">React.render(</span><br><span class="line">  &lt;MyComponent /&gt;,</span><br><span class="line">  document.getElementById('example')</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>tips</strong><br><strong>表单</strong>,受限组件和不受限组件.如果设置了<em>value</em>就是受限组件,只能通过<em>onChange</em>事件来改变<em>value</em>. 如果<em>value</em>没有设置或者是<em>NULL</em>,则和普通的<em>HTML</em>控件一致.<br><em>select</em>组件<br><code>&lt;select&gt;</code>使用<em>value</em>属性来代替<em>seleted</em>.<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;select value="B"&gt;</span><br><span class="line">    &lt;option value="A"&gt;Apple&lt;/option&gt;  </span><br><span class="line">    &lt;option value="B"&gt;Banana&lt;/option&gt;  </span><br><span class="line">    &lt;option value="C"&gt;Cranberry&lt;/option&gt;  </span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>给<em>value</em>属性传递一个数组，可以选中多个选项：<code>&lt;select multiple={true} value={[&#39;B&#39;, &#39;C&#39;]}&gt;</code>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag">#javascript</a>
+          
+            <a href="/tags/react/" rel="tag">#react</a>
+          
+            <a href="/tags/前端/" rel="tag">#前端</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/23/react-tutorial-1/" rel="next" title="react入门教程-1">
+                <i class="fa fa-chevron-left"></i> react入门教程-1
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/26/react-tutorial-3/" rel="prev" title="react入门教程-3">
+                react入门教程-3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/23/react-tutorial-2/"
+           data-title="react入门教程-2" data-url="http://boomya.github.io/2015/08/23/react-tutorial-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Sam Jiang" />
+          <p class="site-author-name" itemprop="name">Sam Jiang</p>
+          <p class="site-description motion-element" itemprop="description">有一颗前端心的后端开发</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件之间的参数传递-props"><span class="nav-number">1.</span> <span class="nav-text">组件之间的参数传递(props)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spread-Attributes"><span class="nav-number">2.</span> <span class="nav-text">Spread Attributes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#refs和getDOMNode-的使用"><span class="nav-number">3.</span> <span class="nav-text">refs和getDOMNode()的使用</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sam Jiang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"boomya"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KRV5K93kkRC2u7Tz6H1ccU9z-gzGzoHsz", "70FGQfEyNiGbPSehdOmXyVb0");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
