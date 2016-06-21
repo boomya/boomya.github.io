@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="dubbo,java," />
 
 
 
@@ -90,15 +90,16 @@
 
 
 
-<meta name="description" content="有一颗前端心的后端开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BOOMYA">
-<meta property="og:url" content="http://boomya.github.io/categories/算法/index.html">
+<meta name="description" content="通过一个具体的例子来介绍如何对外提供dubbo服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对外提供dubbo服务的最佳实践">
+<meta property="og:url" content="http://boomya.github.io/2016/06/21/dubbo-base/index.html">
 <meta property="og:site_name" content="BOOMYA">
-<meta property="og:description" content="有一颗前端心的后端开发">
+<meta property="og:description" content="通过一个具体的例子来介绍如何对外提供dubbo服务">
+<meta property="og:updated_time" content="2016-06-21T07:45:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BOOMYA">
-<meta name="twitter:description" content="有一颗前端心的后端开发">
+<meta name="twitter:title" content="对外提供dubbo服务的最佳实践">
+<meta name="twitter:description" content="通过一个具体的例子来介绍如何对外提供dubbo服务">
 
 
 
@@ -119,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://boomya.github.io/categories/算法/"/>
+  <link rel="canonical" href="http://boomya.github.io/2016/06/21/dubbo-base/"/>
 
-  <title> 分类: 算法 | BOOMYA </title>
+  <title> 对外提供dubbo服务的最佳实践 | BOOMYA </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,47 +281,210 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        算法
-        <small>分类</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                对外提供dubbo服务的最佳实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-21T15:39:56+08:00" content="2016-06-21">
+              2016-06-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/21/dubbo-base/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/21/dubbo-base/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/21/dubbo-base/" class="leancloud_visitors" data-flag-title="对外提供dubbo服务的最佳实践">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>通过一个具体的例子来介绍如何对外提供dubbo服务<br><a id="more"></a></p>
+<h5 id="模块介绍"><a href="#模块介绍" class="headerlink" title="模块介绍"></a>模块介绍</h5><ul>
+<li><code>share</code><br>所有需要对外开放的接口定义以及DTO</li>
+<li><code>client</code><br>对外提供的jar包, 需要调用本项目dubbo服务的应用, 只需要依赖client包. 这个包应该包含dubbo-consumer的配置信息, 以及是所有对外dubbo服务的入口. </li>
+<li><code>service-consumer</code><br>模拟dubbo消费端, 现实情况中, 一般是第三方或者其他应用. 在其他应用调用dubbo服务时, 应该不需要知道具体的dubbo相关的配置信息, 尽量降低使用的成本和使用的风险.</li>
+<li><code>service-provider</code><br>模拟dubbo提供端, 现实情况中, 一般是业务的服务端.</li>
+</ul>
+<h5 id="模块之前的依赖关系"><a href="#模块之前的依赖关系" class="headerlink" title="模块之前的依赖关系"></a>模块之前的依赖关系</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">client</span><br><span class="line">    \--&gt;share</span><br><span class="line"></span><br><span class="line">service-consumer</span><br><span class="line">            \--&gt;client</span><br><span class="line"></span><br><span class="line">service-provider</span><br><span class="line">            \--&gt;share</span><br></pre></td></tr></table></figure>
+<h5 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h5><p>在开放dubbo服务的过程中, 应该避免使用方配置dubbo-consumer信息, 避免配置信息的碎片化, 以及降低使用方配置了不合理的参数的风险.<br>只对外提供一个jar包, 使用方不需要知道具体的配置信息以及实现细节, 降低使用的门槛和成本, 统一维护管理配置信息.<br>项目位置: <a href="https://github.com/boomya/dubbo-base/" target="_blank" rel="external">dubbo-base</a>   </p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2014/12/30/algorithm-complexity/" itemprop="url">
-              
-                <span itemprop="name">算法复杂度</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>支持原创技术分享, 一杯咖啡就好！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin_mini2.png" alt="Sam Jiang WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay_mini2.png" alt="Sam Jiang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-12-30T22:16:55+08:00"
-              content="2014-12-30" >
-          12-30
-        </time>
-      </div>
 
-    </header>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/dubbo/" rel="tag">#dubbo</a>
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/14/git-flowV2/" rel="next" title="Git flow分支管理">
+                <i class="fa fa-chevron-left"></i> Git flow分支管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
+      
+    </div>
+  </div>
 
 
           </div>
@@ -328,6 +492,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/21/dubbo-base/"
+           data-title="对外提供dubbo服务的最佳实践" data-url="http://boomya.github.io/2016/06/21/dubbo-base/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -347,8 +519,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -398,6 +579,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#模块介绍"><span class="nav-number">1.</span> <span class="nav-text">模块介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模块之前的依赖关系"><span class="nav-number">2.</span> <span class="nav-text">模块之前的依赖关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#最后"><span class="nav-number">3.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -501,6 +693,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
