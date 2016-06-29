@@ -97,7 +97,7 @@
 <meta property="og:site_name" content="BOOMYA">
 <meta property="og:description" content="主要介绍了如何cloud模式启动Solr">
 <meta property="og:image" content="http://boomya-files.qiniudn.com/solrcloud-1.png">
-<meta property="og:updated_time" content="2016-06-13T08:58:43.000Z">
+<meta property="og:updated_time" content="2016-06-29T01:38:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="solr由浅入深-3">
 <meta name="twitter:description" content="主要介绍了如何cloud模式启动Solr">
@@ -380,39 +380,39 @@
 
       
         <p>主要介绍了如何cloud模式启动Solr<br><a id="more"></a></p>
-<h2 id="SolrCloud"><a href="#SolrCloud" class="headerlink" title="###SolrCloud"></a>###SolrCloud</h2><p>#####以cloud模式启动solr</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/solr <span class="_">-e</span> cloud <span class="comment">#开启一段交互式的对话,通过以下几步使用内置的zookeeper启动solr集群</span></span><br><span class="line"><span class="comment">#1. 需要启动几个节点</span></span><br><span class="line"><span class="comment">#2. 指定每个节点的端口号</span></span><br><span class="line"><span class="comment">#3. 创建一个新的collection</span></span><br><span class="line"><span class="comment">#4. 指定分片数量. 如果不确定,建议使用2</span></span><br><span class="line"><span class="comment">#5. 指定每个分片的备份数量. 如果不确定,建议使用2</span></span><br><span class="line"><span class="comment">#6. 指定配置文件的目录. 有两种类型default和schemaless,default是example/solr/collection1/conf. schemaless是example/example-schemaless/solr/collection1/conf. default基本上包含的solr全部的配置.如果正在设计schema,需要实验一些特性的时候schemaless很有用. </span></span><br><span class="line"></span><br><span class="line">$ bin/solr restart -c -p 8983 <span class="_">-d</span> node1 <span class="comment">#重启端口为8983的node1节点(使用内置zookeeper)</span></span><br><span class="line">$ bin/solr restart -c -p 7574 <span class="_">-d</span> node2 -z localhost:9983 <span class="comment">#重启node2节点,使用独立zookeeper</span></span><br></pre></td></tr></table></figure>
-<h2 id="场景1-在同一台机器启动2个分片的集群"><a href="#场景1-在同一台机器启动2个分片的集群" class="headerlink" title="###场景1:在同一台机器启动2个分片的集群"></a>###场景1:在同一台机器启动2个分片的集群</h2><p>#####执行步骤:</p>
-<blockquote>
+<h4 id="SolrCloud"><a href="#SolrCloud" class="headerlink" title="SolrCloud"></a>SolrCloud</h4><hr>
+<h5 id="以cloud模式启动solr"><a href="#以cloud模式启动solr" class="headerlink" title="以cloud模式启动solr"></a>以cloud模式启动solr</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/solr <span class="_">-e</span> cloud <span class="comment">#开启一段交互式的对话,通过以下几步使用内置的zookeeper启动solr集群</span></span><br><span class="line"><span class="comment">#1. 需要启动几个节点</span></span><br><span class="line"><span class="comment">#2. 指定每个节点的端口号</span></span><br><span class="line"><span class="comment">#3. 创建一个新的collection</span></span><br><span class="line"><span class="comment">#4. 指定分片数量. 如果不确定,建议使用2</span></span><br><span class="line"><span class="comment">#5. 指定每个分片的备份数量. 如果不确定,建议使用2</span></span><br><span class="line"><span class="comment">#6. 指定配置文件的目录. 有两种类型default和schemaless,default是example/solr/collection1/conf. schemaless是example/example-schemaless/solr/collection1/conf. default基本上包含的solr全部的配置.如果正在设计schema,需要实验一些特性的时候schemaless很有用. </span></span><br><span class="line"></span><br><span class="line">$ bin/solr restart -c -p 8983 <span class="_">-d</span> node1 <span class="comment">#重启端口为8983的node1节点(使用内置zookeeper)</span></span><br><span class="line">$ bin/solr restart -c -p 7574 <span class="_">-d</span> node2 -z localhost:9983 <span class="comment">#重启node2节点,使用独立zookeeper</span></span><br></pre></td></tr></table></figure>
+<h4 id="场景1-在同一台机器启动2个分片的集群"><a href="#场景1-在同一台机器启动2个分片的集群" class="headerlink" title="场景1:在同一台机器启动2个分片的集群"></a>场景1:在同一台机器启动2个分片的集群</h4><hr>
+<h5 id="执行步骤"><a href="#执行步骤" class="headerlink" title="执行步骤:"></a>执行步骤:</h5><blockquote>
 <ol>
 <li>启动第一个节点,并同时启动内置的zookeeper服务器</li>
 <li>启动其他剩余节点,并指向已经启动的zookeeper服务器</li>
 </ol>
 </blockquote>
-<p>#####操作流程:<br>启动第一个节点:</p>
+<h5 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程:"></a>操作流程:</h5><p>启动第一个节点:</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node1</span><br><span class="line">java -DzkRun -DnumShards=2 -Dbootstrap_confdir=./solr/collection1/conf -Dcollection.configName=myconf -jar start.jar</span><br></pre></td></tr></table></figure>
-<p><strong>-DzkRun</strong> 启动内置的zookeeper服务器.如果是产品环境推荐使用独立的zookeeper服务器,使用<em>zkHost=<zookeeper host:port=""></zookeeper></em>替换<em>zkRun</em><br><strong>-DnumShards</strong> 指定分片的数量<br><strong>-Dbootstrap_confdir</strong> 指定配置文件的目录<br><strong>-Dcollection.configName</strong> 指定存储到zookeeper服务器的配置信息的节点名字<br><strong>note:</strong> <em>-DnumShards, -Dbootstrap_confdir 和 -Dcollection.configName</em>只需要在第一次启动时指定,如果后面再运行会从zookeeper加载</p>
+<p><strong>-DzkRun</strong> 启动内置的zookeeper服务器.如果是产品环境推荐使用独立的zookeeper服务器,使用<em>zkHost=<zookeeper host:port=""></zookeeper></em>替换<em>zkRun</em><br><strong>-DnumShards</strong> 指定分片的数量<br><strong>-Dbootstrap_confdir</strong> 指定配置文件的目录<br><strong>-Dcollection.configName</strong> 指定存储到zookeeper服务器的配置信息的节点名字<br><strong>note:</strong> <em>-DnumShards, -Dbootstrap_confdir 和 -Dcollection.configName</em>只需要在第一次启动时指定,如果后面再运行会从zookeeper加载  </p>
 <p>启动其他节点:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node2</span><br><span class="line">java -Djetty.port=7574 -DzkHost=localhost:9983 -jar start.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node2</span><br><span class="line">java -Djetty.port=7574 -DzkHost=localhost:9983 -jar start.jar</span><br></pre></td></tr></table></figure>
 <p><strong>-Djetty.port</strong> 指定jetty端口<br><strong>-DzkHost</strong> 指定zookeeper的ip,内置zookeeper的端口是solr的端口加1000.</p>
 <p>验证SolrCloud启动是否成功,访问<a href="http://localhost:8983/solr/#/~cloud" target="_blank" rel="external">http://localhost:8983/solr/#/~cloud</a>.<br><img src="http://boomya-files.qiniudn.com/solrcloud-1.png" alt="SolrCloud"></p>
 <p>插入数据</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar post.jar mem.xml</span><br></pre></td></tr></table></figure>
 <p>搜索</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8983/solr/collection1/select?q=*:*</span><br><span class="line">http://localhost:7574/solr/collection1/select?q=*:*</span><br></pre></td></tr></table></figure>
-<p>这两个URL返回的搜索结果的数量是相同的.<br>搜索的过程是会搜索每一个分片,再将每个分片的结果组合返回.<br><strong>note:</strong> 如果带上参数<em>distrib=false</em>只会返回指定分片的结果</p>
-<h2 id="场景2-使用外部zookeeper启动SolrCloud集群"><a href="#场景2-使用外部zookeeper启动SolrCloud集群" class="headerlink" title="###场景2:使用外部zookeeper启动SolrCloud集群"></a>###场景2:使用外部zookeeper启动SolrCloud集群</h2><p>#####执行步骤:</p>
-<blockquote>
+<p>这两个URL返回的搜索结果的数量是相同的.<br>搜索的过程是会搜索每一个分片,再将每个分片的结果组合返回.<br><strong>note:</strong> 如果带上参数<em>distrib=false</em>只会返回指定分片的结果  </p>
+<h4 id="场景2-使用外部zookeeper启动SolrCloud集群"><a href="#场景2-使用外部zookeeper启动SolrCloud集群" class="headerlink" title="场景2:使用外部zookeeper启动SolrCloud集群"></a>场景2:使用外部zookeeper启动SolrCloud集群</h4><hr>
+<h5 id="执行步骤-1"><a href="#执行步骤-1" class="headerlink" title="执行步骤:"></a>执行步骤:</h5><blockquote>
 <ol>
 <li>启动外部zookeeper服务</li>
 <li>启动SolrCloud并指向外部zookeeper服务器</li>
 </ol>
 </blockquote>
-<p>#####操作流程:<br><strong>note:</strong>使用外部zookeeper服务之前,需要删除节点目录下solr/zoo_data文件夹<br>启动第一个节点:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node1</span><br><span class="line">java -DnumShards=2 -Dbootstrap_confdir=./solr/collection1/conf \</span><br><span class="line">   -Dcollection.configName=myconf \</span><br><span class="line">   -DzkHost=localhost:2181,localhost:2182,localhost:2183 \</span><br><span class="line">   -jar start.jar</span><br></pre></td></tr></table></figure>
-<p><strong>note:</strong>参数的顺序是有要求的.DzkHost必须要在zookeeper相关参数的后面.</p>
+<h5 id="操作流程-1"><a href="#操作流程-1" class="headerlink" title="操作流程:"></a>操作流程:</h5><p><strong>note:</strong> 使用外部zookeeper服务之前,需要删除节点目录下solr/zoo_data文件夹<br>启动第一个节点:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node1</span><br><span class="line">java -DnumShards=2 -Dbootstrap_confdir=./solr/collection1/conf \</span><br><span class="line">   -Dcollection.configName=myconf \</span><br><span class="line">   -DzkHost=localhost:2181,localhost:2182,localhost:2183 \</span><br><span class="line">   -jar start.jar</span><br></pre></td></tr></table></figure>
+<p><strong>note:</strong> 参数的顺序是有要求的.DzkHost必须要在zookeeper相关参数的后面.</p>
 <p>启动其他节点:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node2</span><br><span class="line">java -Djetty.port=8900 -DzkRun -DnumShards=2 \</span><br><span class="line">    -DzkHost=localhost:2181,localhost:2182,localhost:2183 -jar start.jar</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> node2</span><br><span class="line">java -Djetty.port=8900 -DzkRun -DnumShards=2 \</span><br><span class="line">    -DzkHost=localhost:2181,localhost:2182,localhost:2183 -jar start.jar</span><br></pre></td></tr></table></figure>
 <p>验证SolrCloud启动是否成功,访问<a href="http://localhost:8983/solr/#/~cloud" target="_blank" rel="external">http://localhost:8983/solr/#/~cloud</a>.</p>
 
       
@@ -620,7 +620,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SolrCloud"><span class="nav-number">1.</span> <span class="nav-text">###SolrCloud</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景1-在同一台机器启动2个分片的集群"><span class="nav-number">2.</span> <span class="nav-text">###场景1:在同一台机器启动2个分片的集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景2-使用外部zookeeper启动SolrCloud集群"><span class="nav-number">3.</span> <span class="nav-text">###场景2:使用外部zookeeper启动SolrCloud集群</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#SolrCloud"><span class="nav-number">1.</span> <span class="nav-text">SolrCloud</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#以cloud模式启动solr"><span class="nav-number">1.1.</span> <span class="nav-text">以cloud模式启动solr</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景1-在同一台机器启动2个分片的集群"><span class="nav-number">2.</span> <span class="nav-text">场景1:在同一台机器启动2个分片的集群</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#执行步骤"><span class="nav-number">2.1.</span> <span class="nav-text">执行步骤:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作流程"><span class="nav-number">2.2.</span> <span class="nav-text">操作流程:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#场景2-使用外部zookeeper启动SolrCloud集群"><span class="nav-number">3.</span> <span class="nav-text">场景2:使用外部zookeeper启动SolrCloud集群</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#执行步骤-1"><span class="nav-number">3.1.</span> <span class="nav-text">执行步骤:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#操作流程-1"><span class="nav-number">3.2.</span> <span class="nav-text">操作流程:</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

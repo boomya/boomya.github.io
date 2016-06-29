@@ -96,7 +96,7 @@
 <meta property="og:url" content="http://boomya.github.io/2015/01/09/solr-2/index.html">
 <meta property="og:site_name" content="BOOMYA">
 <meta property="og:description" content="基本的指令介绍,包括搜索和启动.">
-<meta property="og:updated_time" content="2016-06-13T08:58:43.000Z">
+<meta property="og:updated_time" content="2016-06-29T01:43:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="solr由浅入深-2">
 <meta name="twitter:description" content="基本的指令介绍,包括搜索和启动.">
@@ -378,23 +378,26 @@
 
       
         <p>基本的指令介绍,包括搜索和启动.<br><a id="more"></a></p>
-<h2 id="搜索"><a href="#搜索" class="headerlink" title="###搜索"></a>###搜索</h2><p>#####单字搜索<br>搜索foundation</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=foundation"</span></span><br></pre></td></tr></table></figure>
+<h4 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h4><hr>
+<h5 id="单字搜索"><a href="#单字搜索" class="headerlink" title="单字搜索"></a>单字搜索</h5><p>搜索foundation</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=foundation"</span></span><br></pre></td></tr></table></figure>
 <p>限定返回的字段</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=foundation&amp;fl=id"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=foundation&amp;fl=id"</span></span><br></pre></td></tr></table></figure>
 <p>针对具体的字段进入单字的匹配</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:foundation"</span></span><br></pre></td></tr></table></figure>
-<p>#####短语搜索<br>搜索参数q后面跟的短语一定要放在双引号中,并且单词和单词之间的空格要使用”+”号代替.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=\"CAS+latency\""</span></span><br></pre></td></tr></table></figure>
-<p>#####组合搜索<br>需要同时包含单词lucene和单词second</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene+%2BSecond)"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:foundation"</span></span><br></pre></td></tr></table></figure>
+<h5 id="短语搜索"><a href="#短语搜索" class="headerlink" title="短语搜索"></a>短语搜索</h5><p>搜索参数q后面跟的短语一定要放在双引号中,并且单词和单词之间的空格要使用”+”号代替.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=\"CAS+latency\""</span></span><br></pre></td></tr></table></figure>
+<h5 id="组合搜索"><a href="#组合搜索" class="headerlink" title="组合搜索"></a>组合搜索</h5><p>需要同时包含单词lucene和单词second</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene+%2BSecond)"</span></span><br></pre></td></tr></table></figure>
 <p>包含单词lucene并且不允许出现second</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene+-Second)"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene+-Second)"</span></span><br></pre></td></tr></table></figure>
 <p>包含单词lucene或者second</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene-%2BSecond)"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">"http://localhost:8983/solr/collection1/select?wt=json&amp;indent=true&amp;q=name:(%2Blucene-%2BSecond)"</span></span><br></pre></td></tr></table></figure>
 <p><strong>注: ‘+’ URL encode ==&gt; %2B</strong></p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="###启动"></a>###启动</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/solr start <span class="comment">#常规启动</span></span><br><span class="line">bin/solr start <span class="_">-f</span> <span class="comment">#foreground模式启动</span></span><br><span class="line">bin/solr start -p 8383 <span class="comment">#指定端口启动</span></span><br><span class="line">bin/solr -i <span class="comment">#查找已经启动solr实例,并显示基本信息比如版本号和内存占用</span></span><br></pre></td></tr></table></figure>
-<h2 id="终止"><a href="#终止" class="headerlink" title="###终止"></a>###终止</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/solr stop</span><br><span class="line">bin/solr stop -all</span><br></pre></td></tr></table></figure>
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bin/solr start <span class="comment">#常规启动</span></span><br><span class="line">bin/solr start <span class="_">-f</span> <span class="comment">#foreground模式启动</span></span><br><span class="line">bin/solr start -p 8383 <span class="comment">#指定端口启动</span></span><br><span class="line">bin/solr -i <span class="comment">#查找已经启动solr实例,并显示基本信息比如版本号和内存占用</span></span><br></pre></td></tr></table></figure>
+<h4 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h4><hr>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/solr stop</span><br><span class="line">bin/solr stop -all</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -601,7 +604,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索"><span class="nav-number">1.</span> <span class="nav-text">###搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">2.</span> <span class="nav-text">###启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#终止"><span class="nav-number">3.</span> <span class="nav-text">###终止</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#搜索"><span class="nav-number">1.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单字搜索"><span class="nav-number">1.1.</span> <span class="nav-text">单字搜索</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#短语搜索"><span class="nav-number">1.2.</span> <span class="nav-text">短语搜索</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#组合搜索"><span class="nav-number">1.3.</span> <span class="nav-text">组合搜索</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动"><span class="nav-number">2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终止"><span class="nav-number">3.</span> <span class="nav-text">终止</span></a></li></ol></div>
             
           </div>
         </section>
