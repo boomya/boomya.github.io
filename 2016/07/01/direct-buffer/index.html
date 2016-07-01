@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="java,jvm,堆外内存," />
 
 
 
@@ -90,15 +90,16 @@
 
 
 
-<meta name="description" content="有一颗前端心的后端开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="BOOMYA">
-<meta property="og:url" content="http://boomya.github.io/archives/page/3/index.html">
+<meta name="description" content="使用Java语言的同学们都知道, Java的虚拟机对内存的管理大部分情况下就是指堆内存的管理, GC的也是对堆内存的清理和回收.下面就看一下堆外内存的对JVM的意义.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆外内存初探">
+<meta property="og:url" content="http://boomya.github.io/2016/07/01/direct-buffer/index.html">
 <meta property="og:site_name" content="BOOMYA">
-<meta property="og:description" content="有一颗前端心的后端开发">
+<meta property="og:description" content="使用Java语言的同学们都知道, Java的虚拟机对内存的管理大部分情况下就是指堆内存的管理, GC的也是对堆内存的清理和回收.下面就看一下堆外内存的对JVM的意义.">
+<meta property="og:updated_time" content="2016-07-01T07:08:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="BOOMYA">
-<meta name="twitter:description" content="有一颗前端心的后端开发">
+<meta name="twitter:title" content="堆外内存初探">
+<meta name="twitter:description" content="使用Java语言的同学们都知道, Java的虚拟机对内存的管理大部分情况下就是指堆内存的管理, GC的也是对堆内存的清理和回收.下面就看一下堆外内存的对JVM的意义.">
 
 
 
@@ -119,9 +120,9 @@
 
 
 
-  <link rel="canonical" href="http://boomya.github.io/archives/page/3/"/>
+  <link rel="canonical" href="http://boomya.github.io/2016/07/01/direct-buffer/"/>
 
-  <title> 归档 | BOOMYA </title>
+  <title> 堆外内存初探 | BOOMYA </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -152,7 +153,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -280,292 +281,232 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 27 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                堆外内存初探
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-01T12:41:25+08:00" content="2016-07-01">
+              2016-07-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/jvm/" itemprop="url" rel="index">
+                    <span itemprop="name">jvm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/01/direct-buffer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/01/direct-buffer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/01/direct-buffer/" class="leancloud_visitors" data-flag-title="堆外内存初探">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>使用Java语言的同学们都知道, Java的虚拟机对内存的管理大部分情况下就是指堆内存的管理, GC的也是对堆内存的清理和回收.<br>下面就看一下堆外内存的对JVM的意义.<br><a id="more"></a></p>
+<p>第一次了解到堆外内存的使用场景是在使用netty, netty中提到的一个概念, “零拷贝”, 也是netty高性能的原因之一.<br>零拷贝, 主要体现在三个方面:</p>
+<ul>
+<li>Netty的接收和发送ByteBuffer采用DIRECT   BUFFERS，使用堆外(直接)内存进行Socket读写，不需要进行字节缓冲区的二次拷贝。如果使用传统的堆内存（HEAP BUFFERS）进行Socket读写，JVM会将堆内Buffer拷贝一份到直接内存中，然后才写入Socket中。相比于堆外直接内存，消息在发送过程中多了一次缓冲区的内存拷贝。</li>
+<li>Netty提供了组合Buffer对象，可以聚合多个ByteBuffer对象，用户可以像操作一个Buffer那样方便的对组合Buffer进行操作，避免了传统通过内存拷贝的方式将几个小Buffer合并成一个大的Buffer。</li>
+<li>Netty的文件传输采用了transferTo方法，它可以直接将文件缓冲区的数据发送到目标Channel，避免了传统通过循环write方式导致的内存拷贝问题。 </li>
+</ul>
+<p>在使用堆外内存的同时也带来了新的问题, 相比较堆内存, 堆外内存的分配和回收要更耗时, 所以netty提供了<strong>基于内存池的缓冲区重用机制</strong>.</p>
+<p>将本地缓存和堆外内存联系到一起, 是有一次调试线上频繁FULL GC然后OOM的问题, 当时的情况是, 线上频繁的报警有FULLGC, 怀疑有内存泄露,, 通过dump堆内存快照, 分析后发现有一个特别大的HashMap, 原因是打点日志引起的,  应用默认集成了日志系统会自动记录用户的所有行为, 应用这边合并日志后发送到日志接收端, 日志接收端挂掉了, 导致一直在重试, 重试的过程中不停的有新的日志加进来, 最后导致FULLGC. 当时我就在想, <strong>如果将这种本地缓存移到堆外是不是就可以不用参与GC, 也可以使用更大的内存.</strong></p>
+<p>堆外内存有以下特点：</p>
+<ul>
+<li>对于大内存有良好的伸缩性, 堆外内存突破JVM的内存限制</li>
+<li>对垃圾回收停顿的改善可以明显感觉到</li>
+<li>在进程间可以共享，减少虚拟机间的复制 </li>
+</ul>
+<p>堆外内存更适合生命周期中等或长期的对象</p>
+<p><strong>关于堆外内存的回收</strong><br>堆外内存的回收其实依赖于我们的GC机制(堆外内存不会对GC造成什么影响)<br>首先我们要知道在java层面和我们在堆外分配的这块内存关联的只有与之关联的DirectByteBuffer对象了，它记录了这块内存的基地址以及大小，那么既然和GC也有关，那就是GC能通过操作DirectByteBuffer对象来间接操作对应的堆外内存了。<br>DirectByteBuffer对象在创建的时候关联了一个PhantomReference，说到PhantomReference它其实主要是用来跟踪对象何时被回收的，它不能影响GC决策.<br>GC过程中如果发现某个对象除了只有PhantomReference引用它之外，并没有其他的地方引用它了，那将会把这个引用放到java.lang.ref.Reference.pending队列里，在GC完毕的时候通知ReferenceHandler这个守护线程去执行一些后置处理, 而DirectByteBuffer关联的PhantomReference是PhantomReference的一个子类，在最终的处理里会通过Unsafe的free接口来释放DirectByteBuffer对应的堆外内存块</p>
+<blockquote>
+<p>什么是基地址<br>这里就提出了段的概念, 将1G的数据划分为n个段, 每一个段是64K, 每一个段也就是每一个64K就是一个基地址  段内的数据的地址就是当前基地址的偏移地址, 此时 段地址+偏移地址就能够找到真正的内存数据了.</p>
+</blockquote>
+<p><strong>为什么要主动调用System.gc</strong><br>System.gc()会对新生代的老生代都会进行内存回收，这样会比较彻底地回收DirectByteBuffer对象以及他们关联的堆外内存.<br>DirectByteBuffer对象本身其实是很小的，但是它后面可能关联了一个非常大的堆外内存，因此我们通常称之为<em>*冰山对象</em>.<br>我们做ygc的时候会将新生代里的不可达的DirectByteBuffer对象及其堆外内存回收了，但是无法对old里的DirectByteBuffer对象及其堆外内存进行回收，这也是我们通常碰到的最大的问题.<br>如果有大量的DirectByteBuffer对象移到了old，但是又一直没有做cms gc或者full gc，而只进行ygc，那么我们的物理内存可能被慢慢耗光，但是我们还不知道发生了什么，因为heap明明剩余的内存还很多(前提是我们禁用了System.gc – JVM参数DisableExplicitGC)。</p>
+<p><strong>JVM  GC-Invisible Heap</strong><br>淘宝基于OpenJDK HotSpot VM，定制且开源的服务器版Java虚拟机. GC-Invisible Heap，简称GCIH，是一种将Java对象从Java堆内移动到堆外，并且可以在JVM间共享这些对象的技术。  </p>
+<ul>
+<li>没有序列化和反序列化</li>
+<li>GC性能更高</li>
+<li>和直接操作JVM对象完全一样</li>
+</ul>
+<p><strong>如何从JVM移入堆外内存</strong><br>遍历所有对象, 从根对象开始, 根据对象的引用关系递归调用moveIn(将该对象在GCIH的地址encode到刻对象的header上, 并设置header的最低2位为01).  </p>
+<p><strong>如何阻止GC扫描</strong><br>正常的GC过程是, 从root对象出发, 标记活的对象的同时, 将这个对象push到queue, 以便后续的GC线程处理<br>GCIH更改了GC过程, 当某个对象的地址在GCIH地址空间内时, 直接返回, 不将对象放到queue中</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2014">2014</h2>
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>支持原创技术分享, 一杯咖啡就好！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weixin_mini2.png" alt="Sam Jiang WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay_mini2.png" alt="Sam Jiang Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag">#java</a>
+          
+            <a href="/tags/jvm/" rel="tag">#jvm</a>
+          
+            <a href="/tags/堆外内存/" rel="tag">#堆外内存</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/12/29/linux-basic-command/" itemprop="url">
-              
-                <span itemprop="name">linux基本命令</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/21/dubbo-base/" rel="next" title="对外提供dubbo服务的最佳实践">
+                <i class="fa fa-chevron-left"></i> 对外提供dubbo服务的最佳实践
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-12-29T15:57:03+08:00"
-              content="2014-12-29" >
-          12-29
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
 
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/10/21/data-structure-tree-basic/" itemprop="url">
-              
-                <span itemprop="name">数据结构-树(基础)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-10-21T18:22:15+08:00"
-              content="2014-10-21" >
-          10-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/08/11/git-beginner/" itemprop="url">
-              
-                <span itemprop="name">github初级操作(小笨蛋版本)</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-08-11T14:57:13+08:00"
-              content="2014-08-11" >
-          08-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/08/10/synchronized/" itemprop="url">
-              
-                <span itemprop="name">synchronized的简单用法</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-08-10T21:04:01+08:00"
-              content="2014-08-10" >
-          08-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/08/10/jvm-debug/" itemprop="url">
-              
-                <span itemprop="name">JVM-debug</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-08-10T20:59:33+08:00"
-              content="2014-08-10" >
-          08-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/08/10/jdk-hashmap/" itemprop="url">
-              
-                <span itemprop="name">JDK-HashMap</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-08-10T20:30:11+08:00"
-              content="2014-08-10" >
-          08-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/08/09/jdk-arraylist/" itemprop="url">
-              
-                <span itemprop="name">JDK-ArrayList</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-08-09T20:59:33+08:00"
-              content="2014-08-09" >
-          08-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -573,6 +514,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/01/direct-buffer/"
+           data-title="堆外内存初探" data-url="http://boomya.github.io/2016/07/01/direct-buffer/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -592,8 +541,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -643,6 +601,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -746,11 +715,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
